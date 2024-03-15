@@ -2,6 +2,8 @@ import express from 'express';
 import colors from 'colors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
+import userRouter from './routes/user.router.js';
+
 
 dotenv.config()
 
@@ -20,3 +22,6 @@ const PORT = 3000;
 app.listen( PORT , ()=>{
     console.log(`server is running on port : ${PORT}`.bgMagenta);
 })
+
+// test api
+app.use( '/api/user',  userRouter)
