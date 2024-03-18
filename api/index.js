@@ -32,3 +32,15 @@ app.use( '/api/user',  userRouter)
 
 // sign up api  
 app.use( '/api/user' , authRoute)
+
+
+// MiddleWares 
+app.use((err , req , res , next) => {
+    const statusCode = err.statusCode || '500'
+    const message = err.message || 'internal server error'
+    res.status(statusCode).json({
+        success : false,
+        message,
+        statusCode
+    })
+})
