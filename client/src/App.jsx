@@ -8,6 +8,7 @@
  import Home from './pages/Home'
  import Header from './components/Header';
 import FooterCom from './components/FooterCom';
+import PrivateRoute from './components/PrivateRoute';
 
  const App = () => {
    return (
@@ -18,7 +19,9 @@ import FooterCom from './components/FooterCom';
         <Route path='/about' element={<About/>}/>
         <Route path='/sign-in' element={<SignIn/>}/>
         <Route path='/sign-up' element={<SignUp/>}/>
+        <Route element={<PrivateRoute/>}>
         <Route path='/dashboard' element={<Dashboard/>}/>
+        </Route>
         <Route path='/projects' element={<Projects/>}/>
         <Route path='/home' element={<Home/>}/>
         <Route path='*' element={<Home/>}/>
