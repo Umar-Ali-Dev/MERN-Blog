@@ -11,6 +11,13 @@ export const signup = async (req, res, next) => {
         next(errorHandler(400,'All fields are required'))
     }
 
+     // Check if the username or email already exists in the database
+     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+
+     if (existingUser) {
+         return next(errorHandler(409, 'Username or email already exists'));
+     }
+
     const hashedPassword = bcryptjs.hashSync(password , 10)
 
     const newUser = new User({

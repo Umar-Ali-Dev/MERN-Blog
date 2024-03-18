@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userRouter from './routes/user.router.js';
 import authRoute from './routes/auth.route.js'
+import cors from 'cors'
 
 dotenv.config()
 
@@ -18,6 +19,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/blog1' )
 })
 
 const app = express();
+
+// Allow all origins
+app.use(cors());
 
 // allowing input into json 
 app.use(express.json()); 
