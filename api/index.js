@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import userRouter from './routes/user.router.js';
 import authRoute from './routes/auth.route.js'
 import cors from 'cors'
+import cookieParser from 'cookie-parser';
 
 dotenv.config()
 
@@ -25,6 +26,7 @@ app.use(cors());
 
 // allowing input into json 
 app.use(express.json()); 
+app.use(cookieParser());
 
 const PORT = 7000;
 app.listen( PORT , ()=>{
