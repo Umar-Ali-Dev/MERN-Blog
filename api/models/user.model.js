@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema({
     },
     profilePicture : {
         type : String
+    },
+    userToken :{
+        type : String
     }
 }, {timestamps : true});
 const User = mongoose.model('user', userSchema)

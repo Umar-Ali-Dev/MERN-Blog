@@ -30,10 +30,12 @@ const SignIn = () => {
         body : JSON.stringify(formData)
       });
       const data = await  res.json()
+      // console.log(data,'all the data');
       if(data.success === false) {
         dispatch(signInFailure(data.message))
       }
       if(res.ok){
+        // localStorage.setItem('token', data.token);
         dispatch(signInSuccess(data))
         navigate('/')
       }

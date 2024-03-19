@@ -25,7 +25,8 @@ export const signup = async (req, res, next) => {
         username,
         email,
         password : hashedPassword,
-        profilePicture : null
+        profilePicture : null,
+        userToken : null
     })
 
 
@@ -56,7 +57,36 @@ export const signin = async (req, res, next) => {
         }
 
         const token = jwt.sign({id : validUser._id},process.env.JWT_SECRET )
-        const {password : pass , ...rest} = validUser._doc
+
+        // different approach start 
+
+        // const newUser = new User({
+        //     username,
+        //     email,
+        //     password : hashedPassword,
+        //     profilePicture : null,
+        //     userToken : token
+        // })
+
+        // const result = await newUser.save();
+
+        // res.status(200).json(newUser)
+
+        // end 
+
+
+        // const {password : pass , ...rest} = validUser._doc
+
+                // Sending the token in the response body
+                // res.status(200).json( {
+                //     success: true,
+                //     message: "logged in successfully",
+                //     validUser,
+                //     token
+                // });
+
+                // res.status(200).cookie('access_token', token).json(validUser)
+
         res.status(200).cookie('access_token', token, {
             httpOnly : true }).json(validUser)
     } catch (error) {
