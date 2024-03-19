@@ -21,7 +21,7 @@ const Dashboard = () => {
       </div>
 
       {/* Profile  */}
-      <div>
+      <div className='w-full'>
         {
           tab === 'profile' && <DashProfile/>
         }
