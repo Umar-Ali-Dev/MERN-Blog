@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import profileImage from '../assets/image.png'
 import {useDispatch, useSelector} from 'react-redux'
 import { Button, TextInput } from 'flowbite-react'
-import { updateSuccess , updateFailure, updateStart} from '../redux/user/userSlice.js'
+import { updateSuccess , updateFailure, updateStart, signoutSuccess} from '../redux/user/userSlice.js'
  
 const DashProfile = () => {
     const {currentUser} = useSelector(state => state.user)
@@ -62,6 +62,23 @@ const DashProfile = () => {
       }
      }
 
+     const handleSignout = async () => {
+      try {
+        const res = await fetch('http://localhost:7000/api/user/signout',{
+          method:'POST'
+        })
+        const data = await res.json()
+        if(!res.ok){
+          console.log(data.message);
+        }
+        else{
+          dispatch(signoutSuccess())
+        }
+      } catch (error) {
+        console.log(error);
+      }
+     }
+
   return (
     <div className='w-full max-w-lg p-3 mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -79,7 +96,7 @@ const DashProfile = () => {
       </form>
       <div className='flex justify-between mt-5 text-red-500'>
         <span className='cursor-pointer'>Delete Account</span>
-        <span className='cursor-pointer'>Sign Out</span>
+        <span onClick={handleSignout} className='cursor-pointer'>Sign Out</span>
       </div>
     </div>
   )
