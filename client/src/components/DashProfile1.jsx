@@ -2,33 +2,62 @@ import React, { useEffect, useRef, useState } from 'react'
 import profileImage from '../assets/image.png'
 import {useSelector} from 'react-redux'
 import { Button, TextInput } from 'flowbite-react'
- 
+import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
+import { app } from '../firebase';
 
 
-const DashProfile = () => {
+const DashProfile1 = () => {
     const {currentUser} = useSelector(state => state.user)
     const [imageFile, setImageFile] = useState('')
     const [imageFileUrl , setImageFileUrl] = useState(null) 
     const profilePickerRef = useRef()
-    const [image , setImage] = useState('')
-    
+    const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null)
+    const [imageFileUploadError , setImageFileUploadError] = useState(null)
 
+    console.log(imageFileUploadError, imageFileUploadProgress);
     const handleImageChange = (e) => {
-        console.log(e);
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0])
-        reader.onload = () => {
-            console.log(reader.result);
-            setImageFileUrl(reader.result)
+        const file = e.target.files[0]
+        
+        if(file){
+            setImageFile(e.target.files[0])
+            setImageFileUrl(URL.createObjectURL(file))
+          
         }
-        reader.onerror = (error) => {
-            console.log("error", error);
-        }
+        
     }
-     
+    // useEffect( () => {
+    //     if(imageFile){
+    //         uploadImage()
+    //     }
+    // }, [imageFile])
 
-     
- 
+    const uploadImage = async () => {
+        console.log('picture is uploading');
+    }
+
+
+    // Saving Image to FireBase 
+    // const storage = getStorage(app)
+    // // const fileName = new Date().getTime() + imageFile.name ;
+    // const fileName = new Date().getTime() + "-" + imageFile.name;
+    // const storageRef = ref(storage, fileName)
+    // const uploadTask = uploadBytesResumable(storageRef, imageFile)
+
+
+    // uploadTask.on(
+    //     'state_changed',
+    //     (snapshot)=> {
+    //         const progress = (progress.bytesTransferred / snapshot.totalBytes) * 100
+
+    //         setImageFileUploadProgress(progress.toFixed(0))
+    //     }, 
+    //     (error) => {
+    //         setImageFileUploadError('Could not upload file (File must less then 2MB)')
+    //     }, 
+    //     () => {
+    //         getDownloadURL(uploadTask.snapshot.ref).then( (downloadURL) => setImageFileUrl(downloadURL))
+    //     }
+    // )
   return (
     <div className='w-full max-w-lg p-3 mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -52,4 +81,4 @@ const DashProfile = () => {
   )
 }
 
-export default DashProfile
+export default DashProfile1
