@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     },
     userToken :{
         type : String
+    },
+    isAdmin:{
+        type : Boolean,
+        default : false
     }
 }, {timestamps : true});
 const User = mongoose.model('user', userSchema)
