@@ -3,9 +3,10 @@ import profileImage from '../assets/image.png'
 import {useDispatch, useSelector} from 'react-redux'
 import { Button, TextInput } from 'flowbite-react'
 import { updateSuccess , updateFailure, updateStart, signoutSuccess} from '../redux/user/userSlice.js'
+import {Link} from 'react-router-dom'
  
 const DashProfile = () => {
-    const {currentUser} = useSelector(state => state.user)
+    const {currentUser, loading} = useSelector(state => state.user)
     const [imageFile, setImageFile] = useState('')
     const [imageFileUrl , setImageFileUrl] = useState(null) 
     const profilePickerRef = useRef()
@@ -92,7 +93,16 @@ const DashProfile = () => {
         <TextInput type='email' id='email' placeholder='Email' defaultValue={currentUser.email} onChange={handleChange}/>
         <TextInput type='password' id='password' placeholder='Password' defaultValue= '*******' onChange={handleChange}/>
 
-        <Button type='submit' outline gradientDuoTone='purpleToBlue'> Update</Button>
+        <Button type='submit' outline gradientDuoTone='purpleToBlue' disabled={loading}> {loading ? 'Loading' : "Update"}</Button>
+        {
+          currentUser.isAdmin && (
+            <Link to={'/create-post'}>
+            <Button type='button' gradientDuoTone='purpleToBlue' className='w-full'>
+              Create a post
+            </Button>
+            </Link>
+          )
+        }
       </form>
       <div className='flex justify-between mt-5 text-red-500'>
         <span className='cursor-pointer'>Delete Account</span>
