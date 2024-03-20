@@ -3,7 +3,8 @@ import colors from 'colors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userRouter from './routes/user.router.js';
-import authRoute from './routes/auth.route.js'
+import authRoute from './routes/auth.route.js';
+import postRoute from './routes/post.route.js';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 
@@ -38,6 +39,9 @@ app.use( '/api/user',  userRouter)
 
 // sign up api  
 app.use( '/api/user' , authRoute)
+
+// post api route
+app.use('/api/post', postRoute)
 
 
 // MiddleWares 
